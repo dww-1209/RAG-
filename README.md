@@ -1,19 +1,72 @@
-# LangChain 简单聊天项目
+1. # RAG 实战项目：服装商品智能客服（RAG 与智能体开发）
 
-基于 LangChain 1.2 的入门级命令行聊天，支持多种LLM；
+  ## 项目简介
 
-## 1. 配置 API Key（任选其一或都填）
+  - 项目领域：AI 大模型应用
+  - 核心方向：RAG（检索、增强和生成）与智能体开发
 
-自主创建对应大模型的api_key,在文件夹目录下创建.env文件，将自己的api_key复制
+
+  ## 项目需求和核心思路
+
+  ### 核心目标
+
+  - 以 “某东商品衣服” 为实例，基于衣服核心属性（尺码、颜色、洗涤养护等）构建本地知识库
+  - 支持用户自由更新本地知识，所有问题答案均严格基于本地知识库生成
+  - 实现服装商品智能客服功能，精准解答用户尺码推荐、颜色选择、洗涤养护等相关咨询
+
+  ### 处理流程
+
+  #### （一）离线流程
+
+  1. 本地知识文件准备（如尺码推荐.txt、洗涤养护.txt、颜色选择.txt）
+  2. 文件加载和读取
+  3. 文本切分处理（适配向量存储需求）
+  4. 切分后文本存入向量数据库（Chroma）
+
+  #### （二）在线流程
+
+  1. 用户 Query（提问）接收
+  2. Query 向量化转换
+  3. 向量匹配（基于向量数据库检索相关知识）
+  4. Prompt 工程（结合检索结果构建优化提示词）
+  5. 提交 LLM（大语言模型）生成答案并反馈给用户
+
+  ## 项目核心文件说明
+
+  |       文件名称        |                           功能描述                           |
+  | :-------------------: | :----------------------------------------------------------: |
+  |  app_file_upload.py   |  知识库更新主程序（基于 Streamlit 开发），支持文件上传更新   |
+  |       app_qa.py       |     项目主程序（基于 Streamlit 开发），启动对话 WEB 页面     |
+  |    config_data.py     |                       项目全局配置文件                       |
+  | file_history_store.py |                     长期会话记忆存储服务                     |
+  |   knowledge_base.py   |        知识库更新核心服务，含文件处理、向量存储交互等        |
+  |        rag.py         |      RAG 核心服务，整合检索、Prompt 构建、LLM 调用逻辑       |
+  |   vector_stores.py    |            向量存储服务，负责与 Chroma 向量库交互            |
+  |       辅助资源        | chat history（会话历史存储）、chroma_db（向量数据库目录）、data（知识文件存储目录）、md5.text（MD5 校验文件） |
+
+  ## 关键技术实现
+
+  ### 核心函数 / 类
+
+  - `check_md5()`：文件 MD5 校验函数，确保文件完整性
+  - `save_md5()`：MD5 值存储函数，记录已上传文件标识
+  - `get_string_md5(str)`：字符串 MD5 值计算函数
+  - `st.file_uploader()`：Streamlit 框架文件上传组件，支持用户上传知识文件
+  - `upload_by_str(self, data, filename)`：KnowledgeBaseService 类方法，支持字符串形式数据上传知识库
+  - `Class KnowledgeBaseService`：知识库服务核心类，包含 Chroma 向量库实例（self.chroma）、文本切分器（self.spliter）等关键属性
+  - `st.session_state`：Streamlit 会话状态存储对象，维护会话上下文
+  - `uploader_file.get_value()`：获取上传文件的原始数据
 
 
-## 2. 运行
 
-若没有uv需自行下载
+  ### 知识文件
 
-```bash
-uv run python main.py
-```
+  - 尺码推荐.txt：服装尺码匹配规则、体重身高对应标准等
+  - 洗涤养护.txt：不同面料服装洗涤方式、养护注意事项等
+  - 颜色选择.txt：颜色搭配建议、场景适配推荐等
 
-输入内容回车即可与助手对话，输入 `quit` 或空行退出。
+  ### 程序文件
+
+  - 核心程序：app_file_upload.py、app_qa.py、config_data.py、file_history_store.py、knowledge_base.py、rag.py、vector_stores.py
+  - 数据存储：chat history（会话历史）、chroma_db（向量数据库）、md5.text（MD5 校验记录）
 
