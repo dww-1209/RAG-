@@ -1,0 +1,10 @@
+{
+    "name": "John Doe",
+    "age": 25,
+    "hobbies": ["Reading", "Coding", "Hiking"],
+    "major": "Computer Science",
+    "other_info": {
+        "graduation_year": 2022,
+        "gpa": 3.8
+    }
+}

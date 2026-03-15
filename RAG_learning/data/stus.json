@@ -1,0 +1,5 @@
+[
+    {"name":"alice","age":30,"hobbies":["painting","cycling"],"major":"Fine Arts","other_info":{"graduation_year":2015,"gpa":3.5}},
+    {"name":"bob","age":22,"hobbies":["gaming","cooking"],"major":"Culinary Arts","other_info":{"graduation_year":2020,"gpa":3.2}},
+    {"name":"charlie","age":28,"hobbies":["photography","traveling"],"major":"Journalism","other_info":{"graduation_year":2018,"gpa":3.6}}
+]

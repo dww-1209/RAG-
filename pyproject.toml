@@ -10,4 +10,11 @@ dependencies = [
     "langchain-groq>=0.2.0",
     "openai>=2.24.0",
     "python-dotenv>=1.2.2",
+    "langchain-community==0.4.1",
+    "langchain-chroma>=1.1.0",
+    "langchain-text-splitters>=1.1.1",
+    "pypdf>=6.7.5",
+    "dashscope>=1.25.13",
+    "jq>=1.11.0",
+    "streamlit>=1.55.0",
 ]

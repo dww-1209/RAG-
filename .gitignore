@@ -11,3 +11,10 @@ wheels/
 
 # 本地环境变量
 .env
+
+#忽略文件夹
+workflow/
+Agent_learning/
+Agent_project/
+#忽略readme
+README.md
